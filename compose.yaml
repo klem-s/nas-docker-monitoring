@@ -17,7 +17,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.kuma-lan.rule=Host(`kuma.lan`)
-      - traefik.http.routers.kuma-lan.entrypoints=web
+      - traefik.http.routers.kuma-lan.entrypoints=websecure
+      - traefik.http.routers.kuma-lan.tls=true
       - traefik.http.services.kuma-lan.loadbalancer.server.port=3001
 
   # ─────────────────────────────────────────
@@ -30,7 +31,7 @@ services:
       - ${CONFIG}/prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command:
-      - --config.file=/etc/prometheus/prometheus.yml
+      - --config.file=/etc/prometheus/prometheus.yaml
       - --storage.tsdb.path=/prometheus
       - --storage.tsdb.retention.time=30d
     networks:
@@ -41,7 +42,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.prometheus-lan.rule=Host(`prometheus.lan`)
-      - traefik.http.routers.prometheus-lan.entrypoints=web
+      - traefik.http.routers.prometheus-lan.entrypoints=websecure
+      - traefik.http.routers.prometheus-lan.tls=true
       - traefik.http.services.prometheus-lan.loadbalancer.server.port=9090
 
   # ─────────────────────────────────────────
@@ -109,7 +111,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.grafana-lan.rule=Host(`grafana.lan`)
-      - traefik.http.routers.grafana-lan.entrypoints=web
+      - traefik.http.routers.grafana-lan.entrypoints=websecure
+      - traefik.http.routers.grafana-lan.tls=true
       - traefik.http.services.grafana-lan.loadbalancer.server.port=3000
 
 volumes:
