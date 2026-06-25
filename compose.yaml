@@ -1,0 +1,17 @@
+services:
+  # ─────────────────────────────────────────
+  #  UPTIME KUMA – Monitoring
+  # ─────────────────────────────────────────
+  uptime-kuma:
+    image: louislam/uptime-kuma:latest
+    container_name: uptime-kuma
+    volumes:
+      - ${CONFIG}/uptime-kuma:/app/data
+    networks:
+      - proxy
+    ports:
+      - "3003:3001"
+    restart: unless-stopped
+networks:
+  proxy:
+    external: true
