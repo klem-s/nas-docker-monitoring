@@ -13,6 +13,11 @@ services:
     ports:
       - "3003:3001"
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.kuma-lan.rule=Host(`kuma.lan`)
+      - traefik.http.routers.kuma-lan.entrypoints=web
+      - traefik.http.services.kuma-lan.loadbalancer.server.port=3001
 networks:
   proxy:
     external: true
